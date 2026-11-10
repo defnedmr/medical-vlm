@@ -1,0 +1,49 @@
+# --- Medical data & model artifacts (never commit; also hidden from graphify) ---
+data/
+datasets/
+raw/
+*.dcm
+*.nii
+*.nii.gz
+checkpoints/
+outputs/
+indexes/
+*.faiss
+*.index
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.ckpt
+mlruns/
+mlartifacts/
+logs/
+*.sqlite
+*.db
+*.parquet
+
+# --- graphify: commit graph.json, GRAPH_REPORT.md, graph.html; ignore caches/intermediates ---
+graphify-out/cache/
+graphify-out/.graphify_*
+
+# --- Claude Code local overrides ---
+.claude/settings.local.json
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+.env.*
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# --- OS / editors ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

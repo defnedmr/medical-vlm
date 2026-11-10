@@ -79,6 +79,83 @@ Structured draft + flags + supporting cases
     └── unit/
 ```
 
+## Development setup (agentic tooling)
+
+We develop with [Claude Code](https://claude.com/claude-code) and three token-efficiency tools. Program installs live on each machine, so **every team member runs the steps below once**. The shared parts (plugin settings, project rules, knowledge graph) come with the repository.
+
+| Tool | Purpose | Installed | Shared via repo |
+| --- | --- | --- | --- |
+| [graphify](https://github.com/safishamsi/graphify) | Knowledge graph of code + docs so Claude queries a graph instead of re-reading files | Per machine | `graphify-out/graph.json`, `GRAPH_REPORT.md` |
+| [rtk](https://github.com/rtk-ai/rtk) (Rust Token Killer) | Compresses shell command output (git, tests, ls…) before it reaches the model | Per machine (global hook) | — |
+| [ponytail](https://github.com/DietrichGebert/ponytail) | Plugin that keeps generated code minimal | Per machine | `.claude/settings.json` (optional, auto-prompts install) |
+
+**Prerequisites:** Claude Code, Python 3.10+, Git.
+
+### 1. graphify
+
+```bash
+pip install graphifyy
+graphify install
+```
+
+The PyPI name is `graphifyy` (two y's); the command is `graphify`. On Windows, if `graphify` is not found, add your Python `Scripts` folder to `PATH` or use `pipx install graphifyy`.
+
+Optional — keep the graph updated on every commit and merge `graph.json` without conflicts:
+
+```bash
+graphify hook install
+```
+
+### 2. rtk
+
+```bash
+# Windows
+winget install rtk-ai.rtk
+# macOS / Linux
+brew install rtk
+```
+
+Verify you have the right `rtk` (there is an unrelated crate with the same name), then register the Claude Code hook:
+
+```bash
+rtk gain                      # must print the savings dashboard, not "unknown command"
+rtk init -g --auto-patch      # adds a global PreToolUse hook to ~/.claude/settings.json
+```
+
+The hook only rewrites Bash tool calls. Do **not** add the rtk hook to the project's `.claude/settings.json`: it would break Bash for teammates without rtk.
+
+### 3. ponytail
+
+Inside Claude Code:
+
+```text
+/plugin marketplace add DietrichGebert/ponytail
+/plugin install ponytail@ponytail
+```
+
+When the repository contains `.claude/settings.json` with the block below, Claude Code offers to install the plugin when you trust the folder:
+
+```json
+{
+  "extraKnownMarketplaces": {
+    "ponytail": { "source": { "source": "github", "repo": "DietrichGebert/ponytail" } }
+  },
+  "enabledPlugins": { "ponytail@ponytail": true }
+}
+```
+
+Only install from `DietrichGebert/ponytail`. Useful commands: `/ponytail [lite|full|ultra|off]`, `/ponytail-review`, `/ponytail-audit`, `/ponytail-gain`.
+
+### 4. Restart and check
+
+Fully restart Claude Code, then:
+
+- `/graphify .` builds the graph on the first run. If `graphify-out/graph.json` is already in the repo, use it and run `graphify update .` after code changes (no LLM needed).
+- `rtk gain` and `/ponytail-gain` show the savings.
+
+> [!WARNING]
+> graphify sends non-code files (docs, PDFs, images) to the model to extract concepts. It skips paths in `.gitignore` / `.graphifyignore`, so keep all patient data, images, and reports in ignored folders and **never** run `/graphify` on a data directory.
+
 ## Research safeguards
 
 - All images, reports, model checkpoints, and retrieval indexes remain on access-restricted local storage.
