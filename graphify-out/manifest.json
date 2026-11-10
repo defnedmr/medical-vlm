@@ -1,0 +1,26 @@
+{
+  ".claude/settings.json": {
+    "mtime": 1794331050.3517811,
+    "seen": 1794331568.2008219,
+    "ast_hash": "45bb66c9f0781c3e3cc083159ce63edf",
+    "semantic_hash": "45bb66c9f0781c3e3cc083159ce63edf"
+  },
+  "CLAUDE.md": {
+    "mtime": 1794330497.04177,
+    "seen": 1794331568.2008317,
+    "ast_hash": "07c0e2a9c83bf779141f88305192ca38",
+    "semantic_hash": "07c0e2a9c83bf779141f88305192ca38"
+  },
+  "README.md": {
+    "mtime": 1794330508.6471229,
+    "seen": 1794331568.200836,
+    "ast_hash": "0fdf1f363d55f87ceb01e98f691c0cb5",
+    "semantic_hash": "0fdf1f363d55f87ceb01e98f691c0cb5"
+  },
+  "docs/Project_Proposal_Group3.pdf": {
+    "mtime": 1792325475.5043707,
+    "seen": 1794331568.2008383,
+    "ast_hash": "31dc632f466378299b944772663202ca",
+    "semantic_hash": "31dc632f466378299b944772663202ca"
+  }
+}

@@ -25,6 +25,8 @@ logs/
 # --- graphify: commit graph.json, GRAPH_REPORT.md, graph.html; ignore caches/intermediates ---
 graphify-out/cache/
 graphify-out/.graphify_*
+# cost.json is per-run token tracking; would conflict between teammates
+graphify-out/cost.json
 
 # --- Claude Code local overrides ---
 .claude/settings.local.json
