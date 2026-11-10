@@ -94,11 +94,11 @@ We develop with [Claude Code](https://claude.com/claude-code) and three token-ef
 ### 1. graphify
 
 ```bash
-pip install graphifyy
+pip install "graphifyy[pdf]"
 graphify install
 ```
 
-The PyPI name is `graphifyy` (two y's); the command is `graphify`. On Windows, if `graphify` is not found, add your Python `Scripts` folder to `PATH` or use `pipx install graphifyy`.
+The PyPI name is `graphifyy` (two y's); the command is `graphify`. The `[pdf]` extra is needed to read the proposal PDF in `docs/`. On Windows, if `graphify` is not found, add your Python `Scripts` folder to `PATH` or use `pipx install "graphifyy[pdf]"`.
 
 Optional — keep the graph updated on every commit and merge `graph.json` without conflicts:
 
